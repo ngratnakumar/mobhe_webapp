@@ -1,0 +1,202 @@
+@extends('admin.layout')
+@section('content')
+<section class="content-header">
+    <h1>
+        {{ $title }}
+        <small>Control panel</small>
+    </h1>
+    
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{ $sub_title }}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" id="main-form" action="{{ web_url() }}/admin/article/update" >
+                    <div class="box-body">
+                        <input type="hidden" name="id" value="{{ $article?$article->id:"" }}"> 
+                        <div class="form-group">
+                            <label>Article Name</label>
+                            <input type="text" class="form-control" id="" name="name" placeholder="Enter article Name " value="{{ $article?$article->title:"" }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" placeholder="enter a brief description about this article" value='{{ $article->description }}' rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Article Image</label>
+                            <input type="file" class="form-control" id="" name="image">
+                        </div>
+                        <div class="form-group">
+                            <label>Notification To Users</label>
+                            <select name="notification" class="form-control">
+                                <option value="1"> Enable </option>
+                                <option value="0"> Disable </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Article Type</label>
+                            <select name="article_type" class="form-control" id="article_type">
+                                <option value="events"> Events </option>
+                                <option value="dinner_conversations"> Dinner Conversation </option>
+                                <option value="services"> Services </option>
+                                <option value="reviews"> Reviews </option>
+                                <option value="easy_tips"> Easy Tips </option>
+                                <option value="recipes"> Recipes </option>
+                            </select>
+                        </div>
+                        <div id="Events">
+                            <h3><strong>Events</strong></h3><br>
+                            <div class="form-group">
+                                <label>Venue</label>
+                                <input type="text" class="form-control" name="venue" placeholder='Enter A Venue'>
+                            </div>
+                            <div class="form-group">
+                                <label>Cost</label>
+                                <input type="text" class="form-control" name="cost" placeholder='Enter Amount'>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact 1</label>
+                                <input type="text" class="form-control" name="contact1" placeholder='Enter Contact information'>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact 2</label>
+                                <input type="text" class="form-control" name="contact2" placeholder='Enter Contact Information'>
+                            </div>
+                            <div class="form-group">
+                                <label>Link to Buy</label>
+                                <input type="text" class="form-control" name="link_to_buy" placeholder='Enter Link'>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="text" class="form-control datepicker1" name="start_date">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="text" class="form-control datepicker1" name="end_date" >
+                            </div>
+                        </div>
+                        <div id="easy_tips">
+                        <h3><strong>Easy Tips</strong></h3><br>
+                            <div class="form-group">
+                                <label>Tip 1</label>
+                                <input type="text" class="form-control" name="tip1" placeholder='Enter Tip 1'>
+                            </div>
+                            <div class="form-group">
+                                <label>Tip 2</label>
+                                <input type="text" class="form-control" name="tip2" placeholder='Enter Tip 2'>
+                            </div>
+                            <div class="form-group">
+                                <label>Duration1</label>
+                                <input type="text" class="form-control" name="duration1" placeholder='Enter Duration'>
+                            </div>
+                            <div class="form-group">
+                                <label>Duration 2</label>
+                                <input type="text" class="form-control" name="duration2" placeholder='Enter Duration2'>
+                            </div>
+                        </div>
+                        <div id="recipes">
+                        <h3><strong>Recipes</strong></h3><br>
+                            <div class="form-group">
+                                <label>Veg / Non-veg</label>
+                                <select class="form-control" name="is_veg">
+                                    <option value="1"> Veg </option>
+                                    <option value="0"> Non Veg</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <input type="text" class="form-control" name="type" placeholder='Enter Type'>
+                            </div>
+                            <div class="form-group">
+                                <label>Numbers To be Served</label>
+                                <input type="number" class="form-control" name="number_served" placeholder='Enter Numbers to be served'>
+                            </div>
+                            <div class="form-group">
+                                <label>Cooking Method</label>
+                                <input type="text" class="form-control" name="cooking_method" placeholder=''>
+                            </div>
+                            <div class="form-group">
+                                <label>Ingrediants</label>
+                                <textarea class="form-control" name="ingrediants" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Procedure</label>
+                                <textarea class="form-control" name="procedure" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div id="dinner_cnversation">
+                        <h3><strong>Dinner Conversation</strong></h3><br>
+                            <div class="form-group">
+                                <label>External link</label>
+                                <input type="text" class="form-control" name="external_link" placeholder=''>
+                            </div>
+                            <div class="form-group">
+                                <label>Forum link</label>
+                                <input type="text" class="form-control" name="forum_link" placeholder=''>
+                            </div>
+                        </div>
+                        <div id="services">
+                        <h3><strong>Services</strong></h3><br>
+                            <div class="form-group">
+                                <label>Affiliated link</label>
+                                <input type="text" class="form-control" name="affiliated" placeholder=''>
+                            </div>
+                        </div>
+                        <div id="reviews">
+                        <h3><strong>Reviews</strong></h3><br>
+                            <div class="form-group">
+                                <label>Movie Images</label>
+                                <input type="file" name="file[]" id="file" class="form-control" multiple>
+                            </div>
+                            <div class="form-group">
+                                <label>Language</label>
+                                <input type="text" class="form-control" name="language" placeholder=''>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" name="is_released">
+                                    <option value='1'> Released </option>
+                                    <option value="0"> Yet to be Released </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Type of Movie</label>
+                                <input type="text" class="form-control" name="type_of_movie" placeholder=''>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+$("#main-form").validate({
+  rules: {
+    name: "required",
+    kg: {
+      required: true,
+      number: true,
+    },
+    cost:{
+        required:true,
+        number:true,
+    },
+    cost_per_kg : {
+        required:true,
+        number:true,
+    }
+  }
+});
+</script>
+
+@stop

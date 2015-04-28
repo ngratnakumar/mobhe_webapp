@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
-
+use Auth;
+use Redirect;
 class HomeController extends Controller {
 
 	/*
@@ -20,7 +21,14 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		$this->beforeFilter(function()
+		{
+			$this->middleware('auth');
+			if(Auth::user()->roll == 'admin'){
+				return Redirect::to('data');
+			}
+		});
+			
 	}
 
 	/**
