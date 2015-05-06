@@ -41,43 +41,17 @@
                             <div class="col-xs-6"><p>Total Records Found {{ count($requests) }}</p></div>
                         <div class="btn-group" role="group" aria-label="data-filter">
                             <div class="col-xs-3">
-                          <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              Data Filter
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a href="{{ web_url() }}/datas/Callback%">Callbacks</a></li>
-                              <li><a href="{{ web_url() }}/datas/Doctor%">Doctors</a></li>  
-                              <li><a href="{{ web_url() }}/datas/Dentist%">Dentist</a></li>
-                              <li><a href="{{ web_url() }}/datas/Nurse%">Nurse</a></li>
-                              <li><a href="{{ web_url() }}/datas/Care%">Care Taker</a></li>
-                              <li><a href="{{ web_url() }}/datas/Physi%">Physiotherapist</a></li>
-                              <li><a href="{{ web_url() }}/datas/Phar%">Pharmacy Delivery</a></li>
-                              <li><a href="{{ web_url() }}/datas/Lab">Lab</a></li>
-                            </ul>
-                          </div>
+
                         </div>
                         </div>
                     </div>
                     <table id="locations-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Date/Time</th>
-                                <th>Request Type</th>
-                                <th>Transfered To</th>
+                                <th>Date</th>
                                 <th>Patient Name</th>
-                                <th>Gender</th>
-                                <th>Age</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
-                                <th>OTCData</th>
-                                <th>Prescription</th>
-                                <th>Lab Tests</th>
-                                <th>Lab Prescription</th>
-                                <th>Lead Transfer</th>
-                                <th>Delete</th>
+                                <th>Doctor Name</th>
+                                <th>Doctor Number</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,6 +94,7 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="admin/data/mdent/{{ $request->rid }}">Mobident</a></li>
+                                            <li><a href="admin/data/prana/{{ $request->rid }}">Prana</a></li>
                                             <li><a href="admin/showMarkers/{{ $request->rid }}">SP</a></li>
                                         </ul>
                                     </div>

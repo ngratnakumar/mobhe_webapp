@@ -27,6 +27,17 @@ class HomeController extends Controller {
 			if(Auth::user()->roll == 'admin'){
 				return Redirect::to('data');
 			}
+			elseif (Auth::user()->roll == 'pharma') {
+				return Redirect::to('pharmaData')
+					->with(Auth::user()->id);
+			}
+			elseif (Auth::user()->roll == 'lab') {
+				return Redirect::to('userData')
+					->with(Auth::user()->id);
+			}
+			elseif (Auth::user()->roll == 'Canceled') {
+				return view('failed');
+			}
 		});
 			
 	}

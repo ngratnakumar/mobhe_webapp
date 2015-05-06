@@ -14,20 +14,31 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+Route::get('userData', 'Admin\AdminController@userData');
 Route::get('admin', 'Admin\AdminController@index');
+Route::get('datas/{type}', 'Admin\AdminController@datas');
 Route::get('data', 'Admin\AdminController@data');
 Route::get('prana', 'Admin\AdminController@pranaData');
 Route::get('mdent', 'Admin\AdminController@mdentData');
+Route::get('admin/doctors', 'Admin\AdminController@showDoctors');
+Route::get('admin/labs', 'Admin\AdminController@showLabs');
 Route::get('admin/data/delete/{id}', 'Admin\AdminController@deleteRequest');
 Route::get('admin/data/prana/{id}', 'Admin\AdminController@prana');
+Route::get('uDT/{id}', 'Admin\AdminController@userDataTrash');
+Route::get('uDD/{id}', 'Admin\AdminController@userDataDone');
 Route::get('admin/data/mdent/{id}', 'Admin\AdminController@mdent');
 Route::get('admin/data/mdentDone/{id}', 'Admin\AdminController@mdentDone');
 Route::get('admin/data/mdentTrash/{id}', 'Admin\AdminController@mdentTrash');
 Route::get('admin/data/pranaDone/{id}', 'Admin\AdminController@pranaDone');
 Route::get('admin/data/pranaTrash/{id}', 'Admin\AdminController@pranaTrash');
 Route::get('admin/preSync', 'Admin\AdminController@preSync');
+Route::get('admin/appUsers', 'Admin\AdminController@appUsers');
+Route::get('admin/webAppUsers', 'Admin\AdminController@webAppUsers');
 Route::any('admin/benchmarkSelectedData/{date}/{type}', 'Admin\AdminController@benchmarkSelectedData');
+Route::any('admin/roles/{id}/{role}', 'Admin\AdminController@roles');
 Route::any('admin/benchmark', 'Admin\AdminController@benchmark');
+Route::any('admin/showMarkers/{id}', 'Admin\AdminController@showMarkers');
+Route::any('admin/updateDataMarkers/{id}/{type}', 'Admin\AdminController@updateDataMarkers');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

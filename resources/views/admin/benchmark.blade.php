@@ -35,20 +35,22 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-body table-responsive">
-                <div class="row">
-                    
-                <div class="col-xs-3">
-                    
-            <form action="{{ web_url() }}/admin/benchmark" method="post">
-            <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
-              <div class="form-group">
-                <label for="date">Select Date</label>
-                <input type="date" class="form-control" id="date" name="date">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-                </div>
-                </div>
+                    <div class="row">
+                        <form action="{{ web_url() }}/admin/benchmark" method="post">
+                            <div class="col-xs-2" style="margin-top: 8px; margin-right: -100px;">
+                                <label for="date">Select Date</label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+                                  <div class="form-group">
+                                    <input type="date" class="form-control" id="date" name="date">
+                                  </div>
+                            </div>
+                            <div class="col-xs-3">
+                                  <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                     <table id="locations-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -67,16 +69,16 @@
                         <tbody>
                             @foreach($requests as $request)
                             <tr>
-                                <td>{{ $request->createdAt }}</td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Total">{{ $request->Total }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Doctor">{{ $request->Doctor }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Nurse">{{ $request->Nurse }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/ct">{{ $request->ct }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/cfm">{{ $request->cfm }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/pd">{{ $request->pd }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Lab">{{ $request->Lab }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Physiotherapist">{{ $request->Physiotherapist }}</a></td>
-                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->createdAt }}/Dentist">{{ $request->Dentist }}</a></td>
+                                <td>{{ $request->date }}</td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Total">{{ $request->Total }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Doctor">{{ $request->Doctor }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Nurse">{{ $request->Nurse }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/ct">{{ $request->ct }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/cfm">{{ $request->cfm }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/pd">{{ $request->pd }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Lab">{{ $request->Lab }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Physiotherapist">{{ $request->Physiotherapist }}</a></td>
+                                <td><a href="{{ web_url() }}/admin/benchmarkSelectedData/{{ $request->date }}/Dentist">{{ $request->Dentist }}</a></td>
                             </tr>
                             @endforeach
                             

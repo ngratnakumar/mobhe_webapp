@@ -38,7 +38,7 @@
                     <div class="row">
                     <div class="col-xs-9"></div>
 
-                            <div class="col-xs-6"><p>Total Records Found {{ count($requests) }}</p></div>
+                            <div class="col-xs-6"><p>Total Records Found {{ count($requests }}</p></div>
                         <div class="btn-group" role="group" aria-label="data-filter">
                             <div class="col-xs-3">
                           <div class="btn-group" role="group">
@@ -119,8 +119,8 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="admin/data/mdent/{{ $request->rid }}">Mobident</a></li>
-                                            <li><a href="admin/showMarkers/{{ $request->rid }}">SP</a></li>
+                                            <li><a href="admin/data/mdent/{{ $request->rid }}">Mobhe Dent</a></li>
+                                            <li><a href="admin/data/prana/{{ $request->rid }}">Prana</a></li>
                                         </ul>
                                     </div>
                                 </td>

@@ -140,42 +140,67 @@
                     -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
+                    @if( Auth::user()->roll == 'admin')
                         <li>
                             <a href="{{ web_url() }}/admin/benchmark/">
                                 <i class="fa fa-home"></i><span>Benchmark</span>
                             </a>
                         </li>
                         <li>
+                            <a href="{{ web_url() }}/admin/webAppUsers/">
+                                <i class="fa fa-anchor"></i><span>Web App Users</span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="{{ web_url() }}/admin/appUsers/">
+                                <i class="fa fa-group"></i><span>App Users</span>
+                            </a>
+                        </li>                        
+                        <li>
                             <a href="{{ web_url() }}/data">
                                 <i class="fa fa-dashboard"></i><span>Mobhe Leads</span>
                             </a>
                         </li>
-                        <li>
+<!--                         <li>
                             <a href="{{ web_url() }}/prana">
                                 <i class="fa fa-home"></i><span>Prana</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="{{ web_url() }}/mdent">
-                                <i class="fa fa-medkit"></i> <span>Mobhe Dent</span>
+                                <i class="fa fa-medkit"></i> <span>Mobident</span>
                             </a>
                         </li> 
                         <li>
-                            <a href="{{ web_url() }}/admin/docotrs" style="color: grey;">
-                                <i class="fa fa-group"></i><span>Manage Doctors</span>
+                            <a href="{{ web_url() }}/admin/doctors">
+                                <i class="fa fa-group"></i><span>Mobhe Doctors</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ web_url() }}/admin/pharmacies"  style="color: grey;">
-                                <i class="fa fa-map-marker"></i> <span>Manage Pharmacies/Labs</span>
+                            <a href="{{ web_url() }}/admin/labs">
+                                <i class="fa fa-map-marker"></i> <span>Mobhe Labs</span>
                             </a>
-                        </li>        
+                        </li>   
+<!--                          <li>
+                            <a href="{{ web_url() }}/admin/pharmacies" style="color: grey;">
+                                <i class="fa fa-map-marker"></i> <span>Mobhe Pharmacies</span>
+                            </a>
+                        </li> -->     
                         <li>
-                            <a href="{{ web_url() }}/admin/preSync" style="color: green;" onclick="return confirm('Need to wait few Min's !')">
+                            <a href="{{ web_url() }}/admin/preSync" style="color: red;" onclick="return confirm('Need to wait few Min's !')">
                                 <i class="fa fa-refresh"></i> <span>Update Data</span>
                             </a>
-                        </li>             
+                        </li>     
+                        @else
+                                                <li>
+                            <a href="{{ web_url() }}/admin/" style="color: red;" onclick="return confirm('Need to wait few Min's !')">
+                                <i class="fa fa-refresh"></i> <span>Check data</span>
+                            </a>
+                        </li> 
+                        @endif        
                     </ul>
+
+
                 </section>
                 <!-- /.sidebar -->
             </aside>
