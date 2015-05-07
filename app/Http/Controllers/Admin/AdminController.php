@@ -594,7 +594,7 @@ class AdminController extends Controller {
 		if(!empty($value)){
 			$value = date_create($value);
 			$date = date_format($value, "d-M-Y");
-
+            // $date = $value;
 		}
 		else
 			$date = "%";
@@ -619,10 +619,12 @@ class AdminController extends Controller {
 
 				if($date == "%") {
 					$date1 = "%";
-					$check = "date";
+					// $check = "date";
 				}
-				else { $date1 = $date . "%"; $check = 'date'; }
-				$query = $check . ",
+				else { $date1 = $date . "%"; 
+                // $check = 'date'; 
+            }
+				$query = "date ,
 				count(*) as Total, 
 				sum(case when Type = 'Doctor' then 1 else 0 end) as Doctor,
 				sum(case when Type = 'Care Taker' then 1 else 0 end) as ct,
@@ -632,7 +634,7 @@ class AdminController extends Controller {
 				sum(case when Type = 'Physiotherapist' then 1 else 0 end) as Physiotherapist,
 				sum(case when Type = 'Dentist' then 1 else 0 end) as Dentist,
 				sum(case when Type = 'Nurse' then 1 else 0 end) as Nurse";
-        // $where = 'createdAt like "'.$date1.'" and delStat = 0';
+        $where = 'createdAt like "'.$date1.'" and delStat = 0';
 		
 		$request = DB::table('mobhe_Requests')
 			->select(DB::raw($query))
