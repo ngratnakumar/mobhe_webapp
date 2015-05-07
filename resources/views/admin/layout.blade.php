@@ -142,17 +142,17 @@
                     <ul class="sidebar-menu">
                     @if( Auth::user()->roll == 'admin')
                         <li>
-                            <a href="{{ web_url() }}/admin/benchmark/">
+                            <a href="{{ web_url() }}/admin/benchmark">
                                 <i class="fa fa-home"></i><span>Benchmark</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ web_url() }}/admin/webAppUsers/">
+                            <a href="{{ web_url() }}/admin/webAppUsers">
                                 <i class="fa fa-anchor"></i><span>Web App Users</span>
                             </a>
                         </li>                        
                         <li>
-                            <a href="{{ web_url() }}/admin/appUsers/">
+                            <a href="{{ web_url() }}/admin/appUsers">
                                 <i class="fa fa-group"></i><span>App Users</span>
                             </a>
                         </li>                        

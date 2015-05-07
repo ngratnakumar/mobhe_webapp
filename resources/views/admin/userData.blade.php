@@ -42,7 +42,9 @@
                                 <th>Date/Time</th>
                                 <th>Request Type</th>
                                 <th>Transfered To</th>
-                                <th>Patient Name/Gender/Age</th>
+                                <th>Patient Name</th>
+                                <th>Gender</th>
+                                <th>Age</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
                                 <th>OTCData</th>
@@ -60,7 +62,9 @@
                                 <td>{{ $request->rdatetime }}</td>
                                 <td>{{ $request->Type }}</td>
                                 <td>{{ $request->transferedTo }}</td>
-                                <td>{{ $request->Name }},{{ $request->Gender }},{{ $request->Age }}</td>
+                                <td>{{ $request->Name }}</td>
+                                <td>{{ $request->Gender }}</td>
+                                <td>{{ $request->Age }}</td>
                                 <td>{{ $request->Mobile }}</td>
                                 <td>{{ $request->Address }},{{ $request->City }}</td>
                                 <td>{{ $request->OTCData }}</td>

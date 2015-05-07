@@ -309,16 +309,16 @@ class AdminController extends Controller {
                 'objectId' => $cond[$key]->objectId,
                 'Images' => $cond[$key]->Images,
                 'Notes' => $cond[$key]->Notes,
-                // 'Type' => $cond[$key]->Type,
+                'Type' => $cond[$key]->Type,
                 'createdAt' => $cond[$key]->createdAt,
                 'date' => $cond[$key]->date,
                 'time' => $cond[$key]->time,
                 'doctorId' => $cond[$key]->doctorId,
-                // 'doctorName' => $cond[$key]->doctorName,
-                // 'patientAllergies' => $cond[$key]->patientAllergies,
+                'doctorName' => $cond[$key]->doctorName,
+                'patientAllergies' => $cond[$key]->patientAllergies,
                 'patientBloodGroup' => $cond[$key]->patientBloodGroup,
-                // 'patientDisease' => $cond[$key]->patientDisease,
-                // 'patientMedications' => $cond[$key]->patientMedications,
+                'patientDisease' => $cond[$key]->patientDisease,
+                'patientMedications' => $cond[$key]->patientMedications,
                 'patientObjectId' => $cond[$key]->patientObjectId,
                 'updatedAt' => $cond[$key]->updatedAt,
                 'OTCData' => $cond[$key]->OTCData,
@@ -695,7 +695,7 @@ class AdminController extends Controller {
 				$requests = DB::table('mobhe_Requests')
                     ->orderBy('mobhe_Requests.id', 'desc')
                     ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
-                    ->select('mobhe_PatientProfiles.*','Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime')
+                    ->select('mobhe_PatientProfiles.*','mobhe_Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime')
                     ->where('delStat', 0)
                     ->get();
                 }
@@ -704,7 +704,7 @@ class AdminController extends Controller {
                 $requests = DB::table('mobhe_Requests')
                     ->orderBy('mobhe_Requests.id', 'desc')
                     ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
-                    ->select('mobhe_PatientProfiles.*','Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime')
+                    ->select('mobhe_PatientProfiles.*','mobhe_Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime')
                     ->where('Type', 'LIKE', $type)
                     ->where('delStat', 0)
                     ->get();                    
