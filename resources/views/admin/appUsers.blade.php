@@ -45,6 +45,7 @@
                                 <th>Age</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
+                                <th>Created Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,6 +58,7 @@
                                 <td>{{ $request->Age }}</td>
                                 <td>{{ $request->Mobile }}</td>
                                 <td>{{ $request->Address }},{{ $request->City }}</td>
+                                <td>{{ $request->createdAt }}</td>
                             </tr>
                             @endforeach
                             

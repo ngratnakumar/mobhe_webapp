@@ -39,7 +39,9 @@
                     <table id="locations-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th>SP Id</th>
                                 <th>Supplier Name</th>
+                                <th>Address</th>
                                 <th>Type</th>
                                 <th>Assign</th>
                             </tr>
@@ -47,9 +49,11 @@
                         <tbody>
                             @foreach($requests as $request)
                             <tr>
-                                <td>{{ $request->name }}</td>
+                                <td>{{ $request->id }}</td>
+                                <td><a href="{{ web_url() }}/checkUserData/{{ $request->id }}">{{ $request->name }}</a></td>
+                                <td>{{ $request->address }}</td>
                                 <td>{{ $request->type }}</td>
-                                <td><li><a href="{{ web_url() }}/admin/updateDataMarkers/{{ $reqid }}/{{ $request->type }}-{{ $request->name }}">Pass Lead</a></li></td>
+                                <td><li><a href="{{ web_url() }}/admin/updateDataMarkers/{{ $reqid }}/{{ $request->type }}-{{ $request->name }}/{{ $request->id }}">Pass Lead</a></li></td>
                             </tr>
                             @endforeach
                             

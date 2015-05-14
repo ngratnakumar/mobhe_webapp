@@ -31,6 +31,7 @@
 </div>
 @endif
 @endif -->
+<p>{{ $show_type }}</p>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
@@ -42,13 +43,18 @@
                                 <th>Date/Time</th>
                                 <th>Request Type</th>
                                 <th>Transfered To</th>
-                                <th>Patient Name/Gender/Age</th>
+                                <th>Patient Name</th>
+                                <th>Gender</th>
+                                <th>Age</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
-                                <th>OTCData</th>
-                                <th>Prescription</th>
-                                <th>Lab Tests</th>
-                                <th>Lab Prescription</th>
+                                    @if( $show_type == "Phar%" )
+                                        <th>OTCData</th>
+                                        <th>Prescription</th>
+                                    @elseif( $show_type == "Lab%" )
+                                        <th>Lab Tests</th>
+                                        <th>Lab Prescription</th>
+                                    @endif
                                 <th>Lead Transfer</th>
                                 <th>Delete</th>
                             </tr>
@@ -60,28 +66,33 @@
                                 <td>{{ $request->rdatetime }}</td>
                                 <td>{{ $request->Type }}</td>
                                 <td>{{ $request->transferedTo }}</td>
-                                <td>{{ $request->Name }},{{ $request->Gender }},{{ $request->Age }}</td>
+                                <td>{{ $request->Name }}</td>
+                                <td>{{ $request->Gender }}</td>
+                                <td>{{ $request->Age }}</td>
                                 <td>{{ $request->Mobile }}</td>
                                 <td>{{ $request->Address }},{{ $request->City }}</td>
-                                @if( $request->OTCData == "null" || $request->OTCData == "[]")
-                                <td></td>
-                                @else
-                                <td>{{ $request->OTCData }}</td>
-                                @endif
-                                @if($request->Prescription == " ")
-                                <td></td>
-                                @else
-                                <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}"/></span></a></td>
-                                @endif
-                                @if( $request->LabTestNames == "[null]" || $request->LabTestNames == "null")
-                                <td></td>
-                                @else
-                                <td>{{ $request->LabTestNames }}</td>
-                                @endif
-                                @if($request->LabTestPrescription == " ")
-                                <td></td>
-                                @else
-                                <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}"/></span></a></td>
+                                @if( $show_type == "Phar%" )
+                                    @if( $request->OTCData == "null" || $request->OTCData == "[]")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->OTCData }}</td>
+                                    @endif
+                                    @if($request->Prescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}"/></span></a></td>
+                                    @endif
+                                @elseif( $show_type == "Lab%" )
+                                    @if( $request->LabTestNames == "[null]" || $request->LabTestNames == "null")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->LabTestNames }}</td>
+                                    @endif
+                                    @if($request->LabTestPrescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}"/></span></a></td>
+                                    @endif
                                 @endif
                                 <td>
                                     <div class="btn-group">

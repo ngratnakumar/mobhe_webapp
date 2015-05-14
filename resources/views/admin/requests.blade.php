@@ -47,13 +47,13 @@
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                              <li><a href="{{ web_url() }}/datas/Callback%">Callbacks</a></li>
-                              <li><a href="{{ web_url() }}/datas/Doctor%">Doctors</a></li>  
-                              <li><a href="{{ web_url() }}/datas/Dentist%">Dentist</a></li>
-                              <li><a href="{{ web_url() }}/datas/Nurse%">Nurse</a></li>
-                              <li><a href="{{ web_url() }}/datas/Care%">Care Taker</a></li>
-                              <li><a href="{{ web_url() }}/datas/Physi%">Physiotherapist</a></li>
-                              <li><a href="{{ web_url() }}/datas/Phar%">Pharmacy Delivery</a></li>
+                              <li><a href="{{ web_url() }}/datas/Callback">Callbacks</a></li>
+                              <li><a href="{{ web_url() }}/datas/Doctor">Doctors</a></li>  
+                              <li><a href="{{ web_url() }}/datas/Dentist">Dentist</a></li>
+                              <li><a href="{{ web_url() }}/datas/Nurse">Nurse</a></li>
+                              <li><a href="{{ web_url() }}/datas/Care">Care Taker</a></li>
+                              <li><a href="{{ web_url() }}/datas/Physi">Physiotherapist</a></li>
+                              <li><a href="{{ web_url() }}/datas/Phar">Pharmacy Delivery</a></li>
                               <li><a href="{{ web_url() }}/datas/Lab">Lab</a></li>
                             </ul>
                           </div>
@@ -72,10 +72,19 @@
                                 <th>Age</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
-                                <th>OTCData</th>
-                                <th>Prescription</th>
-                                <th>Lab Tests</th>
-                                <th>Lab Prescription</th>
+                                @if($show_type == "all")
+                                    <th>OTCData</th>
+                                    <th>Prescription</th>
+                                    <th>Lab Tests</th>
+                                    <th>Lab Prescription</th>
+                                @endif                                                                    
+                                @if( $show_type == "Phar%")
+                                    <th>OTCData</th>
+                                    <th>Prescription</th>
+                                @elseif( $show_type == "Lab%")
+                                    <th>Lab Tests</th>
+                                    <th>Lab Prescription</th>
+                                @endif
                                 <th>Lead Transfer</th>
                                 <th>Delete</th>
                             </tr>
@@ -92,37 +101,63 @@
                                 <td>{{ $request->Age }}</td>
                                 <td>{{ $request->Mobile }}</td>
                                 <td>{{ $request->Address }},{{ $request->City }}</td>
-                                @if( $request->OTCData == "null" || $request->OTCData == "[]")
-                                <td></td>
-                                @else
-                                <td>{{ $request->OTCData }}</td>
-                                @endif
-                                @if($request->Prescription == " ")
-                                <td></td>
-                                @else
-                                <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}"/></span></a></td>
-                                @endif
-                                @if( $request->LabTestNames == "[null]" || $request->LabTestNames == "null")
-                                <td></td>
-                                @else
-                                <td>{{ $request->LabTestNames }}</td>
-                                @endif
-                                @if($request->LabTestPrescription == " ")
-                                <td></td>
-                                @else
-                                <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}"/></span></a></td>
+                                @if( $show_type == "all")
+                                    @if( $request->OTCData == "null" || $request->OTCData == "[]")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->OTCData }}</td>
+                                    @endif
+                                    @if($request->Prescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}"/></span></a></td>
+                                    @endif
+                                    @if( $request->LabTestNames == "[null]" || $request->LabTestNames == "null")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->LabTestNames }}</td>
+                                    @endif
+                                    @if($request->LabTestPrescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}"/></span></a></td>
+                                    @endif
+                                @endif                                
+                                @if( $show_type == "Phar%"  || @show_type == "all")
+                                    @if( $request->OTCData == "null" || $request->OTCData == "[]")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->OTCData }}</td>
+                                    @endif
+                                    @if($request->Prescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->Prescription))}}"/></span></a></td>
+                                    @endif
+                                @elseif( $show_type == "Lab%" || @show_type == "all")
+                                    @if( $request->LabTestNames == "[null]" || $request->LabTestNames == "null")
+                                    <td></td>
+                                    @else
+                                    <td>{{ $request->LabTestNames }}</td>
+                                    @endif
+                                    @if($request->LabTestPrescription == " ")
+                                    <td></td>
+                                    @else
+                                    <td><a class="thumb" href="#"><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}" height="25px"/><span><img src="{{ str_replace('"]', '', str_replace('["', '', $request->LabTestPrescription))}}"/></span></a></td>
+                                    @endif
                                 @endif
                                 <td>
+                                @if( $request->Type == "Lab" || $request->Type == "Pharmacy Delivery")
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #084425">
                                             <span class="caret"></span>
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="admin/data/mdent/{{ $request->rid }}">Mobident</a></li>
-                                            <li><a href="admin/showMarkers/{{ $request->rid }}">SP</a></li>
+                                            <li><a href="{{ web_url() }}/admin/showMarkers/{{ $request->rid }}">SP</a></li>
                                         </ul>
                                     </div>
+                                @endif
                                 </td>
                                 <td>
                                     <a href="admin/data/delete/{{ $request->rid }}" style="color: red;" onclick="return confirm('Delete Request {{ $request->id }} ?')"><i class="fa fa-times" style="font-size: 110%;"></i></a>

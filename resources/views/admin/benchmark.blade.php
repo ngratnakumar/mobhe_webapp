@@ -31,6 +31,8 @@
 </div>
 @endif
 @endif -->
+@if( Auth::user()->roll == 'admin')
+<section>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
@@ -97,6 +99,23 @@
         var table = $('#locations-table').DataTable();
     });
 </script>
+@else
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome <b>{{ Auth::user()->name }}</b> !</div>
 
+                <div class="panel-body">
+                    Thank You for trying!
+                    <p>You are not Authorized by Administrator.</p>
+                    <p>Please contact</p>
+                    <p><img src="{{ asset('/images/logo.png') }}" style="height: 90px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 @stop

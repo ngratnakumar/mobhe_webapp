@@ -20,9 +20,8 @@ class AdminController extends Controller {
 	| Admin Controller
 	|--------------------------------------------------------------------------
 	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
+	| This controller renders the "Admin page" for the application and
+	| is configured to only allow admins.
 	|
 	*/
 
@@ -35,12 +34,10 @@ class AdminController extends Controller {
 	{
     	ParseClient::initialize('EU9daLseC5u7qOT8dFGOJrD4jHTc38y5Cz7O1XqF', 'PbbeJ3BMKZOSY5Hk86lLFjx442ppPI1ZiXdQcz5m', 'aMfezVMHz99hSxZfgxU0gMOkSqMqhBp9BGboH2st');
     	$TimeZone = Config::set('app.timezone', 'Asia/Kolkata');
-
-			
 	}
 
 	/**
-	 * Show the application welcome screen to the user.
+	 * Show the application welcome screen to the admin-user.
 	 *
 	 * @return Response
 	 */
@@ -54,7 +51,7 @@ class AdminController extends Controller {
         $appusers = DB::table('mobhe_PatientProfiles')
         ->distinct('mobhe_PatientProfiles.userId')
         ->select('mobhe_PatientProfiles.*')
-        ->where('savedForFutureUse', 1)
+        // ->where('savedForFutureUse', 1)
         ->get();
     return View::make('admin.appUsers')
         ->with('title','Mobhe App Users')
@@ -89,11 +86,14 @@ class AdminController extends Controller {
         ->with('reqid',$id);
     }
 
-    public function updateDataMarkers($id, $type)
+    public function updateDataMarkers($id, $type, $spid)
     {
         DB::table('mobhe_Requests')
             ->where('id', $id)
             ->update(['transferedTo' => $type]);
+        DB::table('mobhe_Requests')
+            ->where('id', $id)
+            ->update(['lead_id' => $spid]);
                 return Redirect::to('data');
     }
 
@@ -574,7 +574,8 @@ class AdminController extends Controller {
         ->get();
         return View::make('admin.showBenchmark')
         ->with('title','Mobhe Benchmark')
-        ->with('requests',$requests);
+        ->with('requests',$requests)
+        ->with('show_type',$type);
 
     }
 
@@ -658,12 +659,29 @@ class AdminController extends Controller {
 
         return View::make('admin.requests')
                     ->with('title','Mobhe Leads')
+                    ->with('show_type', "all")
                     ->with('requests',$requests);
     }
 
     public function userData()
     {
         $lead_id = Auth::user()->id;
+        $requests = DB::table('mobhe_Requests')
+        ->orderBy('mobhe_Requests.id', 'desc')
+        ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
+        ->select('mobhe_PatientProfiles.*','mobhe_Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime', 'mobhe_Requests.sp-status as spstatus')
+        ->where('delStat', 0)
+        ->where('lead_id', $lead_id)
+        ->get();
+
+    $title = "Mobhe Leads to " . Auth::user()->name;
+        return View::make('admin.userData')
+                    ->with('title',$title)
+                    ->with('requests',$requests);
+    }
+
+    public function checkUserData($lead_id)
+    {
         $requests = DB::table('mobhe_Requests')
         ->orderBy('mobhe_Requests.id', 'desc')
         ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
@@ -693,6 +711,7 @@ class AdminController extends Controller {
 	public function datas($type)
 	{
 
+        $type .= "%";
         if(empty($type)){
 				$requests = DB::table('mobhe_Requests')
                     ->orderBy('mobhe_Requests.id', 'desc')
@@ -714,75 +733,8 @@ class AdminController extends Controller {
 
 		return View::make('admin.requests')
 					->with('title','Mobhe Leads')
-					->with('requests',$requests);
-	}
-
-	public function pranaData()
-	{
-				$requests = DB::table('mobhe_Requests')
-                    ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
-                    ->select('mobhe_PatientProfiles.*','mobhe_Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime', 'mobhe_Requests.sp-status as spstatus')
-                    ->where('transferedTo', 'prana')
-                    ->where('delStat', 0)
-                    ->get();
-
-		return View::make('admin.userData')
-					->with('title','Mobhe Leads | Prana')
-					->with('requests',$requests);
-	}
-
-	public function mdentData()
-	{
-				$requests = DB::table('mobhe_Requests')
-                    ->leftJoin('mobhe_PatientProfiles', 'mobhe_Requests.patientObjectId', '=', 'mobhe_PatientProfiles.objectId')
-                    ->select('mobhe_PatientProfiles.*','mobhe_Requests.*','mobhe_PatientProfiles.id as ppid', 'mobhe_Requests.id as rid', 'mobhe_Requests.createdAt as rdatetime', 'mobhe_Requests.sp-status as spstatus')
-                    ->where('transferedTo', 'mdent')
-                    ->where('delStat', 0)
-                    ->get();
-
-		return View::make('admin.mdent')
-					->with('title','Mobhe Leads | Mobhe Dent')
-					->with('requests',$requests);
-	}
-
-	public function deleteRequest($id)
-	{
-		DB::table('mobhe_Requests')
-            ->where('id', $id)
-            ->update(['delStat' => 1]);
-            	return Redirect::to('data');
-	}
-
-	public function prana($id)
-	{
-		DB::table('mobhe_Requests')
-            ->where('id', $id)
-            ->update(['transferedTo' => "prana"]);
-            	return Redirect::to('data');
-	}
-
-	public function mdent($id)
-	{
-		DB::table('mobhe_Requests')
-            ->where('id', $id)
-            ->update(['transferedTo' => "mdent"]);
-            	return Redirect::to('data');
-	}
-
-	public function mdentDone($id)
-	{
-		DB::table('mobhe_Requests')
-            ->where('id', $id)
-            ->update(['sp-status' => 'check']);
-            	return Redirect::to('mdent');
-	}
-
-	public function mdentTrash($id)
-	{
-		DB::table('mobhe_Requests')
-            ->where('id', $id)
-            ->update(['sp-status' => 'times']);
-            	return Redirect::to('mdent');
+					->with('requests',$requests)
+                    ->with('show_type', $type);
 	}
 
 	public function userDataDone($id)

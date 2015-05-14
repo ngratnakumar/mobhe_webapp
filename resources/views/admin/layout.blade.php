@@ -17,7 +17,6 @@
         <link href="{{ web_url() }}/admin_asset/css/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
         <link href="{{ web_url() }}/admin_asset/css/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css" media='print' />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <script src="{{ web_url() }}/js/jquery.validate.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
         <link href="{{ web_url() }}/admin_asset/css/AdminLTE.css" rel="stylesheet" type="text/css" />
@@ -28,6 +27,10 @@
         <script src="{{ web_url() }}/admin_asset/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
         <!-- bootstrap color picker -->
         <script src="{{ web_url() }}/admin_asset/js/plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5YsoWjku3QwfL6Fy-AANgr7scyBAajFE&libraries=places" type="text/javascript"></script>
+
+        <script src="{{ asset('js/maps.js') }}"></script>
         <!-- bootstrap time picker -->
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -51,10 +54,10 @@
         }
         </style>
     </head>
-    <body class="skin-blue">
+    <body class="skin-blue" onload="load()">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="{{ web_url() }}/admin/dashboard" class="logo">
+            <a href="{{ web_url() }}/home" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 <img src="{{ asset('/images/logo.png') }}" style="height: 35px;">
             </a>
@@ -78,7 +81,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="{{ web_url() }}/admin_asset/img/avatar2.png" class="img-circle" alt="User Image" />
+                                    <img src="{{ web_url() }}/admin_asset/img/avatar2.png" class="img-square" alt="User Image" />
                                     <p>
                                         {{ Auth::user()->name }}  
                                         <small>{{ Auth::user()->roll }}</small>
@@ -142,58 +145,68 @@
                     <ul class="sidebar-menu">
                     @if( Auth::user()->roll == 'admin')
                         <li>
-                            <a href="{{ web_url() }}/admin/benchmark">
-                                <i class="fa fa-home"></i><span>Benchmark</span>
+                            <a href="{{ web_url() }}/data">
+                                <i class="fa fa-dashboard" style="color: purple;"></i><span>Request Leads</span>
                             </a>
                         </li>
                         <li>
+                            <a href="{{ web_url() }}/admin/benchmark">
+                                <i class="fa fa-home" style="color: blue;"></i><span>Benchmark</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ web_url() }}/map/view">
+                                <i class="fa fa-map-marker" style="color: green;"></i><span>Maps</span>
+                            </a>
+                        </li>     
+                        <li>
+                            <a href="{{ web_url() }}/lab/viewTest" style="color: black;">
+                                <i class="fa fa-list-alt"></i> <span>Lab & Tests</span>
+                            </a>
+                        </li>                             
+                        <li>
                             <a href="{{ web_url() }}/admin/webAppUsers">
-                                <i class="fa fa-anchor"></i><span>Web App Users</span>
+                                <i class="fa fa-bullseye" style="color: orange;"></i><span>Web App Users</span>
                             </a>
                         </li>                        
                         <li>
                             <a href="{{ web_url() }}/admin/appUsers">
-                                <i class="fa fa-group"></i><span>App Users</span>
+                                <i class="fa fa-mobile-phone" style="color: blue;"></i><span>App Users</span>
                             </a>
                         </li>                        
-                        <li>
-                            <a href="{{ web_url() }}/data">
-                                <i class="fa fa-dashboard"></i><span>Mobhe Leads</span>
-                            </a>
-                        </li>
 <!--                         <li>
                             <a href="{{ web_url() }}/prana">
                                 <i class="fa fa-home"></i><span>Prana</span>
                             </a>
                         </li> -->
-                        <li>
+<!--                         <li>
                             <a href="{{ web_url() }}/mdent">
                                 <i class="fa fa-medkit"></i> <span>Mobident</span>
                             </a>
-                        </li> 
+                        </li>  -->
                         <li>
                             <a href="{{ web_url() }}/admin/doctors">
-                                <i class="fa fa-group"></i><span>Mobhe Doctors</span>
+                                <i class="fa fa-group" style="color: green;"></i><span>Doctors</span>
                             </a>
                         </li>
-                        <li>
+<!--                         <li>
                             <a href="{{ web_url() }}/admin/labs">
                                 <i class="fa fa-map-marker"></i> <span>Mobhe Labs</span>
                             </a>
-                        </li>   
+                        </li>   --> 
 <!--                          <li>
                             <a href="{{ web_url() }}/admin/pharmacies" style="color: grey;">
                                 <i class="fa fa-map-marker"></i> <span>Mobhe Pharmacies</span>
                             </a>
-                        </li> -->     
+                        </li> --> 
                         <li>
                             <a href="{{ web_url() }}/admin/preSync" style="color: red;" onclick="return confirm('Need to wait few Min's !')">
                                 <i class="fa fa-refresh"></i> <span>Update Data</span>
                             </a>
                         </li>     
                         @else
-                                                <li>
-                            <a href="{{ web_url() }}/admin/" style="color: red;" onclick="return confirm('Need to wait few Min's !')">
+                        <li>
+                            <a href="{{ web_url() }}/home" style="color: red;" onclick="return confirm('Need to wait few Min's !')">
                                 <i class="fa fa-refresh"></i> <span>Check data</span>
                             </a>
                         </li> 
@@ -214,8 +227,6 @@
 
 
         <!-- jQuery 2.0.2 -->
-        <script src="{{{ asset('assets/library/jquery/jquery.min.js?v=v2.0.0-rc8&sv=v0.0.1.2')}}}"></script>
-<script src="{{{ asset('assets/library/jquery/jquery-migrate.min.js?v=v2.0.0-rc8&sv=v0.0.1.2')}}}"></script>
         <!-- Bootstrap -->
         <script src="{{ web_url() }}/admin_asset/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
@@ -225,13 +236,8 @@
 
         <script src="{{ web_url() }}/admin_asset/js/AdminLTE/app.js" type="text/javascript"></script>
         
-        <script src="http://cdn2.mosaicpro.biz/shared/assets/components/forms_elements_bootstrap-datepicker/bootstrap-datepicker.init.js?v=v2.0.1-rc1&sv=v0.0.1.2"></script>
 
             <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-            <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js"></script>
-
-            <script type="text/javascript" src="{{web_url()}}/assets/Simple-Datetimepicker/jquery.simple-dtpicker.js"></script>
-            <link type="text/css" href="{{web_url()}}/assets/Simple-Datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet" />
         
         <!-- page script -->
         

@@ -36,6 +36,18 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Services</label>
+							<div class="col-md-6">
+								<select class="form-control" name="service_type" value="{{ old('service_type') }}">
+									<option >--Select One--</option>
+									<option value="Lab">Lab</option>
+									<option value="Pharmacies">Pharmacies</option>
+									<option value="Doctors">Doctors</option>
+								</select>
+							</div>
+						</div>						
+
+						<div class="form-group">
 							<label class="col-md-4 control-label">Password</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">

@@ -38,6 +38,9 @@ class HomeController extends Controller {
 			elseif (Auth::user()->roll == 'Canceled') {
 				return view('failed');
 			}
+			else {
+				return view('authprocess');
+			}
 		});
 			
 	}

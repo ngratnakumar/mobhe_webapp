@@ -15,6 +15,7 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 Route::get('userData', 'Admin\AdminController@userData');
+Route::get('checkUserData/{lid}', 'Admin\AdminController@checkUserData');
 Route::get('admin', 'Admin\AdminController@index');
 Route::get('datas/{type}', 'Admin\AdminController@datas');
 Route::get('data', 'Admin\AdminController@data');
@@ -38,13 +39,14 @@ Route::any('admin/benchmarkSelectedData/{date}/{type}', 'Admin\AdminController@b
 Route::any('admin/roles/{id}/{role}', 'Admin\AdminController@roles');
 Route::any('admin/benchmark', 'Admin\AdminController@benchmark');
 Route::any('admin/showMarkers/{id}', 'Admin\AdminController@showMarkers');
-Route::any('admin/updateDataMarkers/{id}/{type}', 'Admin\AdminController@updateDataMarkers');
+Route::any('admin/updateDataMarkers/{id}/{type}/{spid}', 'Admin\AdminController@updateDataMarkers');
+#User Login/Register/Authentication
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 Route::resource('user', 'UserController');
-
+#CSS/Js Assets
 Route::filter('before', function()
 {
 	Assets::add('style',"/admin_asset/css/bootstrap.min.css");
@@ -54,3 +56,21 @@ Route::filter('before', function()
 	Assets::add('style',"/admin_asset/css/fullcalendar/fullcalendar.print.css");
 	Assets::add('style',"/admin_asset/css/fullcalendar/fullcalendar.css");
 });
+#Maps
+Route::post('map/addmap', 'Map\MapController@addmap');
+Route::get('map/add', 'Map\MapController@viewForm');
+Route::get('map/view', 'Map\MapController@viewMaps');
+Route::get('map/viewData', 'Map\MapController@viewData');
+#Labs
+Route::any('lab/addTest', 'Lab\LabController@addTest');
+Route::get('lab/viewTest', 'Lab\LabController@viewLabTests');
+Route::get('lab/addTestsForm', function(){
+	return View::make('labs.addtest')
+	->with("title", "Add Lab Test");
+});
+
+Route::any('lab/addTests2Lab', function(){
+	return dd(Input::all()); 
+});
+Route::any('lab/addLTData', 'Lab\LabController@addLTData');
+Route::any('lab/updateTests', 'Lab\LabController@updateTests');

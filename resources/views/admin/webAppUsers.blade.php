@@ -41,6 +41,7 @@
                                 <th>User Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Service Requested For</th>
                                 <th>Role</th>
                                 <th>Created On</th>
                             </tr>
@@ -51,6 +52,7 @@
                                 <td>{{ $request->id }}</td>
                                 <td>{{ $request->name }}</td>
                                 <td>{{ $request->email }}</td>
+                                <td>{{ $request->service_type }}</td>
                                 <td>                                    
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #084425">
